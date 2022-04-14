@@ -20,6 +20,16 @@
                 "instanceLimit": 1,
                 "runOn": "default"
             }
+        },
+        {
+            "label": "take screenshot",
+            "type": "shell",
+            "command": "pebble screenshot --phone 192.168.1.107",
+            "runOptions": {
+                "instanceLimit": 1,
+                "runOn": "default"
+            },
+            "problemMatcher": []
         }
     ]
 }
