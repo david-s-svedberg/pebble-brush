@@ -1,0 +1,141 @@
+{
+    "author": "david.s.svedberg@gmail.com",
+    "keywords": [],
+    "name": "brush",
+    "pebble": {
+        "displayName": "Brush",
+        "projectType": "native",
+        "resources": {
+            "publishedMedia": [
+                {
+                  "name": "APP_GLANCE_ICON",
+                  "id": 1,
+                  "glance": "BRUSH_ICON"
+                }
+            ],
+            "media": [
+                {
+                    "file": "images/config16_16.png",
+                    "name": "CONFIG_ICON",
+                    "spaceOptimization": "memory",
+                    "targetPlatforms": [
+                        "diorite",
+                        "basalt",
+                        "aplite"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/brush.png",
+                    "name": "BRUSH_ICON",
+                    "spaceOptimization": "memory",
+                    "targetPlatforms": [
+                        "diorite",
+                        "basalt",
+                        "aplite"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/check20_20.png",
+                    "name": "CHECK_ICON",
+                    "spaceOptimization": "memory",
+                    "targetPlatforms": [
+                        "diorite",
+                        "basalt",
+                        "aplite"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/edit15_15.png",
+                    "name": "EDIT_ICON",
+                    "spaceOptimization": "memory",
+                    "targetPlatforms": [
+                        "diorite",
+                        "basalt",
+                        "aplite"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/up.png",
+                    "name": "UP_ICON",
+                    "spaceOptimization": "memory",
+                    "targetPlatforms": [
+                        "diorite",
+                        "basalt",
+                        "aplite"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/down.png",
+                    "name": "DOWN_ICON",
+                    "spaceOptimization": "memory",
+                    "targetPlatforms": [
+                        "diorite",
+                        "basalt",
+                        "aplite"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/play.png",
+                    "name": "PLAY_ICON",
+                    "spaceOptimization": "memory",
+                    "targetPlatforms": [
+                        "diorite",
+                        "basalt",
+                        "aplite"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/refresh.png",
+                    "name": "REFRESH_ICON",
+                    "spaceOptimization": "memory",
+                    "targetPlatforms": [
+                        "diorite",
+                        "basalt",
+                        "aplite"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/pause.png",
+                    "name": "PAUSE_ICON",
+                    "spaceOptimization": "memory",
+                    "targetPlatforms": [
+                        "diorite",
+                        "basalt",
+                        "aplite"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/swap.png",
+                    "name": "SWAP_ICON",
+                    "spaceOptimization": "memory",
+                    "targetPlatforms": [
+                        "diorite",
+                        "basalt",
+                        "aplite"
+                    ],
+                    "type": "bitmap"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "diorite",
+            "aplite",
+            "basalt"
+        ],
+        "uuid": "b68baf1a-4dbf-4daf-8c55-0560c4b982a8",
+        "watchapp": {
+            "watchface": false
+        }
+    },
+    "version": "1.0.0"
+}
