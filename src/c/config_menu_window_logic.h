@@ -9,7 +9,8 @@ void setup_settings_items(
     SimpleMenuItem* long_time,
     SimpleMenuItem* auto_start,
     SimpleMenuItem* auto_kill,
-    SimpleMenuLayer* settings_menu_layer);
+    SimpleMenuLayer* settings_menu_layer,
+    StatusBarLayer* status_bar);
 char* get_current_theme();
 char* get_current_short_time();
 char* get_current_long_time();

@@ -15,10 +15,23 @@ static TextLayer* ne_quad_layer;
 static TextLayer* sw_quad_layer;
 static TextLayer* se_quad_layer;
 
+static Layer* nw_quad_background_layer;
+static Layer* ne_quad_background_layer;
+static Layer* sw_quad_background_layer;
+static Layer* se_quad_background_layer;
+
 static ActionBarLayer* main_window_action_bar_layer;
 
-static GColor8 m_background_color;
-static GColor8 m_foreground_color;
+static int16_t m_quad_space_top;
+static int16_t m_quad_space_bottom;
+static int16_t m_quad_space_left;
+static int16_t m_quad_space_right;
+static int16_t m_quad_space_width;
+static int16_t m_quad_space_height;
+static int16_t m_quad_space_middle_x;
+static int16_t m_quad_space_middle_y;
+static uint16_t m_quad_space_text_padding;
+static uint16_t m_quad_space_text_height;
 
 static void main_window_click_config_provider(void* context)
 {
@@ -30,7 +43,7 @@ static void main_window_click_config_provider(void* context)
 static void setup_main_window_action_bar_layer(Layer *window_layer, GRect bounds)
 {
     main_window_action_bar_layer = action_bar_layer_create();
-    action_bar_layer_set_background_color(main_window_action_bar_layer, m_foreground_color);
+    action_bar_layer_set_background_color(main_window_action_bar_layer, get_foreground_color());
     action_bar_layer_add_to_window(main_window_action_bar_layer, main_window);
     action_bar_layer_set_click_config_provider(main_window_action_bar_layer, main_window_click_config_provider);
 
@@ -39,52 +52,61 @@ static void setup_main_window_action_bar_layer(Layer *window_layer, GRect bounds
     action_bar_layer_set_icon_animated(main_window_action_bar_layer, BUTTON_ID_DOWN, get_config_icon(), true);
 }
 
+static void calculate_quad_space(GRect bounds)
+{
+    m_quad_space_top = STATUS_BAR_LAYER_HEIGHT;
+    m_quad_space_bottom = bounds.size.h;
+    m_quad_space_left = bounds.origin.x;
+    m_quad_space_right = bounds.size.w - ACTION_BAR_WIDTH;
+    m_quad_space_width = ((m_quad_space_right - m_quad_space_left) / 2);
+    m_quad_space_height = ((m_quad_space_bottom - m_quad_space_top) / 2);
+    m_quad_space_middle_x = m_quad_space_width + m_quad_space_left;
+    m_quad_space_middle_y = m_quad_space_height + m_quad_space_top;
+
+    m_quad_space_text_padding = ((m_quad_space_height - 42) / 2) - 4;
+    m_quad_space_text_height = m_quad_space_height - (m_quad_space_text_padding * 2);
+}
+
 static void setup_quad_text_layers(Layer *window_layer, GRect bounds)
 {
-    int16_t top = STATUS_BAR_LAYER_HEIGHT;
-    int16_t bottom = bounds.size.h;
-    int16_t left = 0;
-    int16_t right = bounds.size.w - ACTION_BAR_WIDTH;
+    nw_quad_layer = text_layer_create(GRect(m_quad_space_left, m_quad_space_top + m_quad_space_text_padding, m_quad_space_width, m_quad_space_text_height));
+    ne_quad_layer = text_layer_create(GRect(m_quad_space_middle_x, m_quad_space_top + m_quad_space_text_padding, m_quad_space_width, m_quad_space_text_height));
+    sw_quad_layer = text_layer_create(GRect(m_quad_space_left, m_quad_space_middle_y + m_quad_space_text_padding, m_quad_space_width, m_quad_space_text_height));
+    se_quad_layer = text_layer_create(GRect(m_quad_space_middle_x, m_quad_space_middle_y + m_quad_space_text_padding, m_quad_space_width, m_quad_space_text_height));
 
-    int16_t quad_width = ((right - left) / 2);
-    int16_t quad_height = ((bottom - top) / 2);
-
-    int16_t middle_x = quad_width + left;
-    int16_t middle_y = quad_height + top;
-
-    nw_quad_layer = text_layer_create(GRect(left, top, quad_width, quad_height));
-    ne_quad_layer = text_layer_create(GRect(middle_x, top, quad_width, quad_height));
-    sw_quad_layer = text_layer_create(GRect(left, middle_y, quad_width, quad_height));
-    se_quad_layer = text_layer_create(GRect(middle_x, middle_y, quad_width, quad_height));
-
-    text_layer_set_text_color(nw_quad_layer, m_foreground_color);
-    text_layer_set_text_color(ne_quad_layer, m_foreground_color);
-    text_layer_set_text_color(sw_quad_layer, m_foreground_color);
-    text_layer_set_text_color(se_quad_layer, m_foreground_color);
+    TextLayer* textLayers[] = {nw_quad_layer, ne_quad_layer, sw_quad_layer, se_quad_layer};
 
     GFont font = fonts_get_system_font(FONT_KEY_LECO_42_NUMBERS);
+    for(uint8_t i = 0; i < (uint8_t)ARRAY_LENGTH(textLayers); i++)
+    {
+        text_layer_set_text_color(textLayers[i], get_foreground_color());
+        text_layer_set_font(textLayers[i], font);
+        text_layer_set_text_alignment(textLayers[i], GTextAlignmentCenter);
+        layer_add_child(window_layer, text_layer_get_layer(textLayers[i]));
+    }
+}
 
-    text_layer_set_font(nw_quad_layer, font);
-    text_layer_set_font(ne_quad_layer, font);
-    text_layer_set_font(sw_quad_layer, font);
-    text_layer_set_font(se_quad_layer, font);
+static void setup_quad_background_layers(Layer *window_layer, GRect bounds)
+{
+    nw_quad_background_layer = layer_create(GRect(m_quad_space_left, m_quad_space_top, m_quad_space_width, m_quad_space_height));
+    ne_quad_background_layer = layer_create(GRect(m_quad_space_middle_x, m_quad_space_top, m_quad_space_width, m_quad_space_height));
+    sw_quad_background_layer = layer_create(GRect(m_quad_space_left, m_quad_space_middle_y, m_quad_space_width, m_quad_space_height));
+    se_quad_background_layer = layer_create(GRect(m_quad_space_middle_x, m_quad_space_middle_y, m_quad_space_width, m_quad_space_height));
 
-    text_layer_set_text_alignment(nw_quad_layer, GTextAlignmentCenter);
-    text_layer_set_text_alignment(ne_quad_layer, GTextAlignmentCenter);
-    text_layer_set_text_alignment(sw_quad_layer, GTextAlignmentCenter);
-    text_layer_set_text_alignment(se_quad_layer, GTextAlignmentCenter);
+    Layer* layers[] = {nw_quad_background_layer, ne_quad_background_layer, sw_quad_background_layer, se_quad_background_layer};
 
-    layer_add_child(window_layer, text_layer_get_layer(nw_quad_layer));
-    layer_add_child(window_layer, text_layer_get_layer(ne_quad_layer));
-    layer_add_child(window_layer, text_layer_get_layer(sw_quad_layer));
-    layer_add_child(window_layer, text_layer_get_layer(se_quad_layer));
+    for(uint8_t i = 0; i < (uint8_t)ARRAY_LENGTH(layers); i++)
+    {
+        layer_set_update_proc(layers[i], update_background_layer);
+        layer_add_child(window_layer, layers[i]);
+    }
 }
 
 static void setup_status_bar(Layer *window_layer, GRect bounds)
 {
     status_bar = status_bar_layer_create();
 
-    status_bar_layer_set_colors(status_bar, m_background_color, m_foreground_color);
+    status_bar_layer_set_colors(status_bar, get_background_color(), get_foreground_color());
     status_bar_layer_set_separator_mode(status_bar, StatusBarLayerSeparatorModeDotted);
 
     layer_add_child(window_layer, status_bar_layer_get_layer(status_bar));
@@ -92,15 +114,28 @@ static void setup_status_bar(Layer *window_layer, GRect bounds)
 
 static void load_main_window(Window *window)
 {
-    window_set_background_color(window, m_background_color);
+    window_set_background_color(window, get_background_color());
     Layer *window_layer = window_get_root_layer(window);
     GRect bounds = layer_get_bounds(window_layer);
 
+    calculate_quad_space(bounds);
     setup_main_window_action_bar_layer(window_layer, bounds);
     setup_status_bar(window_layer, bounds);
+    setup_quad_background_layers(window_layer, bounds);
     setup_quad_text_layers(window_layer, bounds);
 
-    setup_layers(nw_quad_layer, ne_quad_layer, sw_quad_layer, se_quad_layer, main_window_action_bar_layer, main_window);
+    setup_layers(
+        nw_quad_layer,
+        ne_quad_layer,
+        sw_quad_layer,
+        se_quad_layer,
+        nw_quad_background_layer,
+        ne_quad_background_layer,
+        sw_quad_background_layer,
+        se_quad_background_layer,
+        main_window_action_bar_layer,
+        status_bar,
+        main_window);
 
     reset_brushing();
 
@@ -123,9 +158,6 @@ static void unload_main_window(Window *window)
 
 void setup_main_window(GColor8 background_color, GColor8 foreground_color)
 {
-    m_background_color = background_color;
-    m_foreground_color = foreground_color;
-
     main_window = window_create();
 
     window_set_window_handlers(main_window, (WindowHandlers) {

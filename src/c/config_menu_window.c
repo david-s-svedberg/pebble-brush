@@ -86,7 +86,7 @@ static void load_config_menu_window(Window *config_window)
     setup_settings_menu_layer(config_window_layer, config_window_bounds);
     setup_status_bar(config_window_layer, config_window_bounds);
 
-    setup_settings_items(&m_theme_item, &m_short_time, &m_long_time, &m_auto_start, &m_auto_kill, settings_menu_layer);
+    setup_settings_items(&m_theme_item, &m_short_time, &m_long_time, &m_auto_start, &m_auto_kill, settings_menu_layer, status_bar);
 }
 
 static void unload_config_menu_window(Window *window)
@@ -95,11 +95,8 @@ static void unload_config_menu_window(Window *window)
     status_bar_layer_destroy(status_bar);
 }
 
-void setup_config_menu_window(GColor8 background_color, GColor8 foreground_color)
+void setup_config_menu_window()
 {
-    m_background_color = background_color;
-    m_foreground_color = foreground_color;
-
     config_window = window_create();
 
     window_set_window_handlers(config_window, (WindowHandlers) {

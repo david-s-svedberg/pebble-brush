@@ -14,7 +14,7 @@ static void seed_version_1_data(Data* data)
     data->background_color = GColorBlack;
     data->foreground_color = GColorWhite;
     data->current_is_long = true;
-    data->long_quad_time = 30;
+    data->long_quad_time = 35;
     data->short_quad_time = 15;
     data->auto_start = true;
     data->auto_kill = true;
@@ -26,7 +26,7 @@ static void seed_data()
     seed_version_1_data(&m_data);
 
     m_data.data_version = CURRENT_DATA_VERSION;
-    persist_write_data(DATA_KEY, &m_data, sizeof(Data));
+    save_data();
 }
 
 static bool data_version_is_current(Data* data)
@@ -90,16 +90,19 @@ void toggle_quad_time()
     Data* data = get_data();
     bool current = data->current_is_long;
     data->current_is_long = !current;
+    save_data();
 }
 
 void set_long_quad_time(uint8_t value)
 {
     get_data()->long_quad_time = value;
+    save_data();
 }
 
 void set_short_quad_time(uint8_t value)
 {
     get_data()->short_quad_time = value;
+    save_data();
 }
 
 bool has_any_data()

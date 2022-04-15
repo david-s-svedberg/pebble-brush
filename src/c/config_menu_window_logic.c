@@ -15,6 +15,7 @@ static SimpleMenuItem* m_auto_start;
 static SimpleMenuItem* m_auto_kill;
 
 static SimpleMenuLayer* m_settings_menu_layer;
+static StatusBarLayer* m_status_bar;
 
 static void update_theme_menu_item();
 static void update_short_menu_item();
@@ -147,6 +148,8 @@ static void update_auto_kill_menu_item()
 
 void update_config_menu(Window* config_window)
 {
+    window_set_background_color(config_window, get_background_color());
+    status_bar_layer_set_colors(m_status_bar, get_background_color(), get_foreground_color());
     update_theme_menu_item();
     update_short_menu_item();
     update_long_menu_item();
@@ -161,7 +164,8 @@ void setup_settings_items(
     SimpleMenuItem* long_time,
     SimpleMenuItem* auto_start,
     SimpleMenuItem* auto_kill,
-    SimpleMenuLayer* settings_menu_layer)
+    SimpleMenuLayer* settings_menu_layer,
+    StatusBarLayer* status_bar)
 {
     m_theme_item = theme_item;
     m_short_time = short_time;
@@ -169,4 +173,5 @@ void setup_settings_items(
     m_auto_start = auto_start;
     m_auto_kill = auto_kill;
     m_settings_menu_layer = settings_menu_layer;
+    m_status_bar = status_bar;
 }

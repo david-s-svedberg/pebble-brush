@@ -15,8 +15,19 @@
             ],
             "media": [
                 {
-                    "file": "images/config16_16.png",
-                    "name": "CONFIG_ICON",
+                    "file": "images/config_black.png",
+                    "name": "CONFIG_BLACK_ICON",
+                    "spaceOptimization": "memory",
+                    "targetPlatforms": [
+                        "diorite",
+                        "basalt",
+                        "aplite"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/config_white.png",
+                    "name": "CONFIG_WHITE_ICON",
                     "spaceOptimization": "memory",
                     "targetPlatforms": [
                         "diorite",
@@ -37,8 +48,8 @@
                     "type": "bitmap"
                 },
                 {
-                    "file": "images/check20_20.png",
-                    "name": "CHECK_ICON",
+                    "file": "images/play_white.png",
+                    "name": "PLAY_WHITE_ICON",
                     "spaceOptimization": "memory",
                     "targetPlatforms": [
                         "diorite",
@@ -48,8 +59,8 @@
                     "type": "bitmap"
                 },
                 {
-                    "file": "images/edit15_15.png",
-                    "name": "EDIT_ICON",
+                    "file": "images/play_black.png",
+                    "name": "PLAY_BLACK_ICON",
                     "spaceOptimization": "memory",
                     "targetPlatforms": [
                         "diorite",
@@ -59,8 +70,8 @@
                     "type": "bitmap"
                 },
                 {
-                    "file": "images/up.png",
-                    "name": "UP_ICON",
+                    "file": "images/pause_black.png",
+                    "name": "PAUSE_BLACK_ICON",
                     "spaceOptimization": "memory",
                     "targetPlatforms": [
                         "diorite",
@@ -70,8 +81,8 @@
                     "type": "bitmap"
                 },
                 {
-                    "file": "images/down.png",
-                    "name": "DOWN_ICON",
+                    "file": "images/pause_white.png",
+                    "name": "PAUSE_WHITE_ICON",
                     "spaceOptimization": "memory",
                     "targetPlatforms": [
                         "diorite",
@@ -81,8 +92,8 @@
                     "type": "bitmap"
                 },
                 {
-                    "file": "images/play.png",
-                    "name": "PLAY_ICON",
+                    "file": "images/swap_black.png",
+                    "name": "SWAP_BLACK_ICON",
                     "spaceOptimization": "memory",
                     "targetPlatforms": [
                         "diorite",
@@ -92,30 +103,8 @@
                     "type": "bitmap"
                 },
                 {
-                    "file": "images/refresh.png",
-                    "name": "REFRESH_ICON",
-                    "spaceOptimization": "memory",
-                    "targetPlatforms": [
-                        "diorite",
-                        "basalt",
-                        "aplite"
-                    ],
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/pause.png",
-                    "name": "PAUSE_ICON",
-                    "spaceOptimization": "memory",
-                    "targetPlatforms": [
-                        "diorite",
-                        "basalt",
-                        "aplite"
-                    ],
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/swap.png",
-                    "name": "SWAP_ICON",
+                    "file": "images/swap_white.png",
+                    "name": "SWAP_WHITE_ICON",
                     "spaceOptimization": "memory",
                     "targetPlatforms": [
                         "diorite",

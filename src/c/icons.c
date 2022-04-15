@@ -1,13 +1,10 @@
 #include "icons.h"
 
-static GBitmap *check_icon;
+#include "persistance.h"
+
 static GBitmap *config_icon;
-static GBitmap *edit_icon;
-static GBitmap *up_icon;
-static GBitmap *down_icon;
 static GBitmap *play_icon;
 static GBitmap *brush_icon;
-static GBitmap *refresh_icon;
 static GBitmap *pause_icon;
 static GBitmap *swap_icon;
 
@@ -29,34 +26,30 @@ static void destroy_icon(GBitmap* icon)
     }
 }
 
-GBitmap* get_check_icon()
-{
-    return get_icon(RESOURCE_ID_CHECK_ICON, check_icon);
-}
-
 GBitmap* get_config_icon()
 {
-    return get_icon(RESOURCE_ID_CONFIG_ICON, config_icon);
-}
-
-GBitmap* get_edit_icon()
-{
-    return get_icon(RESOURCE_ID_EDIT_ICON, edit_icon);
-}
-
-GBitmap* get_up_icon()
-{
-    return get_icon(RESOURCE_ID_UP_ICON, up_icon);
-}
-
-GBitmap* get_down_icon()
-{
-    return get_icon(RESOURCE_ID_DOWN_ICON, down_icon);
+    uint32_t icon_id;
+    if(is_dark_theme())
+    {
+        icon_id = RESOURCE_ID_CONFIG_BLACK_ICON;
+    } else
+    {
+        icon_id = RESOURCE_ID_CONFIG_WHITE_ICON;
+    }
+    return get_icon(icon_id, config_icon);
 }
 
 GBitmap* get_play_icon()
 {
-    return get_icon(RESOURCE_ID_PLAY_ICON, play_icon);
+    uint32_t icon_id;
+    if(is_dark_theme())
+    {
+        icon_id = RESOURCE_ID_PLAY_BLACK_ICON;
+    } else
+    {
+        icon_id = RESOURCE_ID_PLAY_WHITE_ICON;
+    }
+    return get_icon(icon_id, play_icon);
 }
 
 GBitmap* get_brush_icon()
@@ -64,31 +57,37 @@ GBitmap* get_brush_icon()
     return get_icon(RESOURCE_ID_BRUSH_ICON, brush_icon);
 }
 
-GBitmap* get_refresh_icon()
-{
-    return get_icon(RESOURCE_ID_REFRESH_ICON, refresh_icon);
-}
-
 GBitmap* get_pause_icon()
 {
-    return get_icon(RESOURCE_ID_PAUSE_ICON, pause_icon);
+    uint32_t icon_id;
+    if(is_dark_theme())
+    {
+        icon_id = RESOURCE_ID_PAUSE_BLACK_ICON;
+    } else
+    {
+        icon_id = RESOURCE_ID_PAUSE_WHITE_ICON;
+    }
+    return get_icon(icon_id, pause_icon);
 }
 
 GBitmap* get_swap_icon()
 {
-    return get_icon(RESOURCE_ID_SWAP_ICON, swap_icon);
+    uint32_t icon_id;
+    if(is_dark_theme())
+    {
+        icon_id = RESOURCE_ID_SWAP_BLACK_ICON;
+    } else
+    {
+        icon_id = RESOURCE_ID_SWAP_WHITE_ICON;
+    }
+    return get_icon(icon_id, swap_icon);
 }
 
 void destroy_all_icons()
 {
-    destroy_icon(check_icon);
     destroy_icon(config_icon);
-    destroy_icon(edit_icon);
-    destroy_icon(up_icon);
-    destroy_icon(down_icon);
     destroy_icon(play_icon);
     destroy_icon(brush_icon);
-    destroy_icon(refresh_icon);
     destroy_icon(pause_icon);
     destroy_icon(swap_icon);
 }
